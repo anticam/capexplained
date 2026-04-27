@@ -35,6 +35,11 @@ annotate service.Books with @(
                 Label : 'Price',
                 Value : price,
             },
+            {
+                $Type : 'UI.DataField',
+                Value : currency_code,
+                Label : 'Currency',
+            },
         ],
     },
     UI.Facets : [
@@ -98,6 +103,11 @@ annotate service.Books with @(
             $Type : 'UI.DataField',
             Value : stock,
             Label : 'Stock',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : currency_code,
+            Label : 'Currency',
         },
     ],
     UI.SelectionFields : [
@@ -218,4 +228,8 @@ annotate service.BookStatus with {
         Common.Text : displayText,
         Common.Text.@UI.TextArrangement : #TextOnly,
 )};
+
+annotate service.Books with {
+    currency @Common.ValueListWithFixedValues : true
+};
 
