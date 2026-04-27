@@ -18,7 +18,7 @@ annotate service.Books with @(
             },
             {
                 $Type : 'UI.DataField',
-                Value : genre,
+                Value : genre_code,
             },
             {
                 $Type : 'UI.DataField',
@@ -77,11 +77,6 @@ annotate service.Books with @(
         },
         {
             $Type : 'UI.DataField',
-            Label : 'Genre',
-            Value : genre,
-        },
-        {
-            $Type : 'UI.DataField',
             Label : 'Pages',
             Value : pages,
         },
@@ -109,6 +104,10 @@ annotate service.Books with @(
             Value : currency_code,
             Label : 'Currency',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : genre_code,
+        },
     ],
     UI.SelectionFields : [
         price,
@@ -123,7 +122,7 @@ annotate service.Books with @(
         },
         Description : {
             $Type : 'UI.DataField',
-            Value : genre,
+            Value : genre_code,
         },
         TypeImageUrl : 'sap-icon://course-book',
     },
@@ -180,7 +179,21 @@ annotate service.Books with {
 annotate service.Books with {
     price @Common.Label : 'Price';
     title @Common.Label : 'Title';
-    genre @Common.Label : 'Genre';
+    genre @(
+        Common.Label : 'Genre',
+        Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'GenresVH',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : genre_code,
+                    ValueListProperty : 'code',
+                },
+            ],
+        },
+        Common.ValueListWithFixedValues : true,
+    );
 };
 
 annotate service.Chapters with @(
@@ -232,4 +245,10 @@ annotate service.BookStatus with {
 annotate service.Books with {
     currency @Common.ValueListWithFixedValues : true
 };
+
+annotate service.GenresVH with {
+    code @(
+        Common.Text : description,
+        Common.Text.@UI.TextArrangement : #TextLast,
+)};
 
