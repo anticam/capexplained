@@ -29,7 +29,6 @@ annotate Books with {
 entity Genres {
     key code        : Genre;
         description : String;
-
 }
 
 type Genre          : String enum {
@@ -54,7 +53,6 @@ entity BookStatus {
         criticality : Integer;
         displayText : String;
 }
-
 
 type BookStatusCode : String(1) enum {
     Available = 'A';
