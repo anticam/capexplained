@@ -1,13 +1,24 @@
 using BookstoreService as service from '../../srv/service';
+// annotate service.Books with @odata.draft.enabled;  // moved to service.cds
+
 annotate service.Books with @(
     UI.FieldGroup #GeneratedGroup : {
         $Type : 'UI.FieldGroupType',
         Data : [
             {
                 $Type : 'UI.DataField',
+                Value : title,
+                Label : 'Title',
+            },
+            {
+                $Type : 'UI.DataField',
                 Value : status_code,
                 Criticality : status.criticality,
                 CriticalityRepresentation : #WithIcon,
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : genre,
             },
             {
                 $Type : 'UI.DataField',
@@ -157,7 +168,9 @@ annotate service.Books with {
 };
 
 annotate service.Books with {
-    price @Common.Label : 'Price'
+    price @Common.Label : 'Price';
+    title @Common.Label : 'Title';
+    genre @Common.Label : 'Genre';
 };
 
 annotate service.Chapters with @(
