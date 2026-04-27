@@ -1,7 +1,8 @@
 using {
     cuid,
     managed,
-    sap.common.Currencies
+    sap.common.Currencies,
+    Currency
 } from '@sap/cds/common';
 
 namespace tutorial.db;
@@ -13,11 +14,16 @@ entity Books : cuid, managed {
     publishedAt : Date;
     pages       : Integer;
     price       : Decimal(9, 2);
-    currency    : Association to Currencies;
+    //currency    : Association to Currencies;
+    currency    : Currency;
     stock       : Integer;
     status      : Association to BookStatus;
     Chapters    : Composition of many Chapters
                       on Chapters.book = $self;
+}
+
+annotate Books with {
+    price @Measures.ISOCurrency: currency_code;
 }
 
 entity Genres {
