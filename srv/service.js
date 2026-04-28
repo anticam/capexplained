@@ -34,6 +34,18 @@ module.exports = class BookstoreService extends cds.ApplicationService {
 
     })
 
+    this.on('changeStatus', Books, async (req) => {
+      console.log('changeStatus called: ', req.params, req.data)
+      const bookId = req.params[0].ID;
+      const newStatus = req.data.newStatus;
+      //const { ID } = req.params[0];
+      //console.log('AddStock book ID, ID: ', bookId, ID);
+      await UPDATE(Books)
+        .set({ status_code: newStatus })
+        .where({ ID: bookId })
+
+    })
+
     this.before('READ', Books, async (req) => {
       console.log(`[${timestamp()}] Before READ Books`, req.data)
     })

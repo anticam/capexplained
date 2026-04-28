@@ -5,6 +5,21 @@ service BookstoreService {
         actions {
             action addStock();
             action changePublishDate(newDate: Date);
+            action changeStatus(
+                                @(Common: {
+                                    ValueListWithFixedValues: true,
+                                    Label                   : 'New status',
+                                    ValueList               : {
+                                        $Type         : 'Common.ValueListType',
+                                        CollectionPath: 'BookStatus',
+                                        Parameters    : [{
+                                            $Type            : 'Common.ValueListParameterInOut',
+                                            LocalDataProperty: newStatus,
+                                            ValueListProperty: 'code',
+                                        }, ],
+                                    },
+                                })
+                                newStatus: String);
         };
 
     entity Authors    as projection on db.Authors;

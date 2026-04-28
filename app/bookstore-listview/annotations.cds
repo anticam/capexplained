@@ -40,6 +40,11 @@ annotate service.Books with @(
                 Value : currency_code,
                 Label : 'Currency',
             },
+            {
+                $Type : 'UI.DataField',
+                Value : stock,
+                Label : 'Stock',
+            },
         ],
     },
     UI.Facets : [
@@ -111,7 +116,7 @@ annotate service.Books with @(
         {
             $Type : 'UI.DataFieldForAction',
             Action : 'BookstoreService.addStock',
-            Label : 'addStock',
+            Label : 'Add stock',
         },
     ],
     UI.SelectionFields : [
@@ -165,12 +170,17 @@ annotate service.Books with @(
         {
             $Type : 'UI.DataFieldForAction',
             Action : 'BookstoreService.addStock',
-            Label : 'addStock',
+            Label : 'Add stock',
         },
         {
             $Type : 'UI.DataFieldForAction',
             Action : 'BookstoreService.changePublishDate',
-            Label : 'changePublishDate',
+            Label : 'Change publish date',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstoreService.changeStatus',
+            Label : 'Change Status',
         },
     ],
 );
