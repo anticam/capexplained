@@ -5,9 +5,34 @@ const cds = require('@sap/cds')
 
 module.exports = class BookstoreService extends cds.ApplicationService {
   init() {
-    const timestamp = () => new Date().toISOString()
+    const timestamp = () => new Date().toISOString();
 
-   //  const { Books } = cds.entities('BookstoreService')
+    //  const { Books } = cds.entities('BookstoreService')
+
+    this.on('addStock', Books, async (req) => {
+      console.log('AddStock called: ', req.params)
+      const bookId = req.params[0].ID;
+
+      //const { ID } = req.params[0];
+      //console.log('AddStock book ID, ID: ', bookId, ID);
+      await UPDATE(Books)
+        .set({ stock: { '+=': 1 } })
+        .where({ ID: bookId })
+
+    })
+
+
+    this.on('changePublishDate', Books, async (req) => {
+      console.log('changePublishDate called: ', req.params, req.data)
+      const bookId = req.params[0].ID;
+      const newDate = req.data.newDate;
+      //const { ID } = req.params[0];
+      //console.log('AddStock book ID, ID: ', bookId, ID);
+      await UPDATE(Books)
+        .set({ publishedAt: newDate })
+        .where({ ID: bookId })
+
+    })
 
     this.before('READ', Books, async (req) => {
       console.log(`[${timestamp()}] Before READ Books`, req.data)

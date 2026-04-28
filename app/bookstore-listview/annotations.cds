@@ -108,6 +108,11 @@ annotate service.Books with @(
             $Type : 'UI.DataField',
             Value : genre_code,
         },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstoreService.addStock',
+            Label : 'addStock',
+        },
     ],
     UI.SelectionFields : [
         price,
@@ -156,6 +161,18 @@ annotate service.Books with @(
             
         ],
     },
+    UI.Identification : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstoreService.addStock',
+            Label : 'addStock',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstoreService.changePublishDate',
+            Label : 'changePublishDate',
+        },
+    ],
 );
 
 annotate service.Books with {
