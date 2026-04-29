@@ -4,6 +4,7 @@ using {
     sap.common.Currencies,
     Currency
 } from '@sap/cds/common';
+using {Attachments} from '@cap-js/attachments';
 
 namespace tutorial.db;
 
@@ -61,14 +62,15 @@ type BookStatusCode : String(1) enum {
 }
 
 entity Authors : cuid, managed {
-    name     : String;
-    fileName : String;
-    fileType : String      @Core.IsMediaType;
-    content  : LargeBinary @Core.MediaType                  : fileType
-                           @Core.AcceptableMediaTypes       : ['application/pdf'] // https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types/Common_types
-                           @Core.ContentDisposition.Filename: fileName;
-    books    : Association to many Books
-                   on books.author = $self;
+    name        : String;
+    fileName    : String;
+    fileType    : String      @Core.IsMediaType;
+    content     : LargeBinary @Core.MediaType                  : fileType
+                              @Core.AcceptableMediaTypes       : ['application/pdf'] // https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/MIME_types/Common_types
+                              @Core.ContentDisposition.Filename: fileName;
+    attachments : Composition of many Attachments;
+    books       : Association to many Books
+                      on books.author = $self;
 }
 
 entity Chapters : cuid, managed {
