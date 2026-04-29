@@ -1,3 +1,5 @@
+//import { xpr } from '@sap/cds/lib/compile/parse';
+
 const { Books } = require('#cds-models/BookstoreService')
 const { Genre } = require('#cds-models/tutorial/db')
 const cds = require('@sap/cds')
@@ -8,6 +10,13 @@ module.exports = class BookstoreService extends cds.ApplicationService {
     const timestamp = () => new Date().toISOString();
 
     //  const { Books } = cds.entities('BookstoreService')
+
+    this.on('addDiscount', async () => {
+      await UPDATE(Books)
+        // .set({ price: { '*=': 0.9 } })
+        .set({ price: { func: 'ROUND', args: [{ xpr: [{ ref: ['price'] }, '*', { val: 0.9 }]}, { val: 2}] } })
+
+    })
 
     this.on('addStock', Books, async (req) => {
       console.log('AddStock called: ', req.params)
