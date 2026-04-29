@@ -14,7 +14,7 @@ module.exports = class BookstoreService extends cds.ApplicationService {
     this.on('addDiscount', async () => {
       await UPDATE(Books)
         // .set({ price: { '*=': 0.9 } })
-        .set({ price: { func: 'ROUND', args: [{ xpr: [{ ref: ['price'] }, '*', { val: 0.9 }]}, { val: 2}] } })
+        .set({ price: { func: 'ROUND', args: [{ xpr: [{ ref: ['price'] }, '*', { val: 0.9 }] }, { val: 2 }] } })
 
     })
 
