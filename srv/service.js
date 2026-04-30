@@ -1,6 +1,6 @@
 //import { xpr } from '@sap/cds/lib/compile/parse';
 
-const { Books } = require('#cds-models/BookstoreService')
+const { Books, Authors } = require('#cds-models/BookstoreService')
 const { Genre } = require('#cds-models/tutorial/db')
 const cds = require('@sap/cds')
 
@@ -73,6 +73,26 @@ module.exports = class BookstoreService extends cds.ApplicationService {
           console.log(`[${timestamp()}] Discount applied to book ${book.ID} (${book.title}) price: ${book.price}`);
         }
       }
+    })
+
+    this.after('READ', Authors, async (authors) => {
+      console.log(`[${timestamp()}] After READ Authors`)//, Authors)
+      const ids = authors.map(author => author.ID);
+      // const ids2 = authors.map( (author) => { return author.ID} ); // same as above, just more verbose
+      console.log(ids);
+      const bookCounts = await SELECT
+        .from(Books)
+        .columns('author_ID', { func: 'count' })
+        .where({ author_ID: { in: ids } })
+        .groupBy('author_ID');
+      console.log('bookCounts :', bookCounts);
+      for (const author of authors) {
+        const bookCount = bookCounts.find(bookCount => bookCount.author_ID === author.ID);
+        // author.bookCount = bookCounts.find(b => b.author_ID === author.ID)?.count ?? 0;
+        console.log('book count', bookCount)
+        author.bookCount = bookCount?.count ?? 0;
+      }
+
     })
 
 

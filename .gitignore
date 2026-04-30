@@ -144,3 +144,9 @@ vite.config.ts.timestamp-*
 .vite/
 
 @cds-models
+
+*.sqlite
+*.db
+db.sqlite*
+settings.json
+
