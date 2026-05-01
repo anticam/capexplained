@@ -1,0 +1,47 @@
+@host = http://localhost:4004
+
+###
+#
+GET {{host}}/odata/v4/bookstore/Books HTTP/1.1
+Authorization: Basic admin:admin
+
+###
+# get number of records
+GET {{host}}/odata/v4/bookstore/Books?$count=true HTTP/1.1
+Authorization: Basic admin:admin
+
+###
+# get top 2 books and include total number of books (@odata.count)
+GET {{host}}/odata/v4/bookstore/Books?$top=2&$count=true HTTP/1.1
+Authorization: Basic admin:admin
+
+
+###
+# get top 2 books and include total number of books (@odata.count)
+GET {{host}}/odata/v4/bookstore/Books(ID=24062778-f3f8-4fa8-9470-71f2225f6625,IsActiveEntity=true) HTTP/1.1
+Authorization: Basic admin:admin
+
+
+###
+# get top 2 books and include total number of books (@odata.count)
+POST {{host}}/odata/v4/bookstore/Books HTTP/1.1
+Authorization: Basic admin:admin
+Content-Type: application/json
+
+{
+    "title": "New Book about CAP",
+    "price": "19.99",
+    "stock": "10",
+    "author_ID": "28123929-2abe-4049-a229-800c1db84615"
+}
+
+###
+#
+GET {{host}}/odata/v4/bookstore/Chapters HTTP/1.1
+Authorization: Basic admin:admin
+
+###
+#
+
+GET {{host}}/odata/v4/bookstore/$metadata HTTP/1.1
+Authorization: Basic admin:admin
